@@ -6,6 +6,12 @@ import YourChart from "../TableView/YourChart";
 import YourEmbeddingApp from '../EmbeddingApp/YourEmbeddingApp';
 import service from "../Service/service";
 import {IUser} from "../interfaces/IUser";
+//Home component
+import Home from '../Home/home';
+//User authentication components
+import Register from '../Register/register';
+import Login from '../Login/login';
+
 
 import RendererComp from "../renderedData";
 
@@ -84,6 +90,7 @@ class App extends Component<AppProps, AppState> {
         <Router>
             <div>
                 <Routes>
+                    <Route index element={<Home></Home>}></Route>
                     <Route path="/data"
                            element={ <YourChart data={this.state.yourChartProps.data}
                                                 fields={this.state.yourChartProps.fields}></YourChart>
@@ -95,6 +102,10 @@ class App extends Component<AppProps, AppState> {
                         csv_content={this.state.csv_content}></RendererComp>}>
 
                     </Route>
+                    <Route path="/register" element={<Register></Register>}></Route>
+                    <Route path="/login" element={<Login></Login>}></Route>
+
+
                 </Routes>
             </div>
 
