@@ -1,7 +1,7 @@
 import React, {ChangeEvent} from 'react'
 import axios, {AxiosError} from 'axios';
 import handleAxiosError from "../Errors/handleAxiosError";
-import { useNavigate } from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 
 const Login: React.FC = () => {
     const [formData, updateFormData] = React.useState({
@@ -78,8 +78,11 @@ const Login: React.FC = () => {
                                 <button type={"submit"}
                                         className={"btn btn-primary"}>Submit
                                 </button>
+                                <span className={"ml-5 mr-5"}>New to our platform?</span>
+                                <Link className={"btn btn-outline-primary"} to={"/register"}>Register</Link>
 
                             </form>
+
                         </div>
                     </div>
                 </div>
