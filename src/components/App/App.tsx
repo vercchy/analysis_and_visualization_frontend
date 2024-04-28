@@ -14,6 +14,8 @@ import Login from '../Login/login';
 
 
 import RendererComp from "../renderedData";
+import TableWrapper from "../My-Custom-Tables/Table-Wrapper";
+
 
 
 
@@ -39,22 +41,6 @@ class App extends Component<AppProps, AppState> {
             },
             csv_content : "",
             yourChartProps: {
-                data: [
-                    {id: 1, name: "Kiko"}, // Example IRow object
-                    {id: 2, name: "Verche"},
-                ],
-                fields: [
-                    {
-                        fid: "id", key: "keyID", name: "id", basename: "id",
-                        disable: false, semanticType: "ordinal", analyticType: "dimension"
-                    }, // Example IMutField object
-                    {
-                        fid: "name", key: "keyName", name: "name", basename: "name",
-                        disable: false, semanticType: "nominal", analyticType: "dimension"
-                    },
-
-                    // Add more IMutField objects as needed
-                ],
             }
 
 
@@ -64,12 +50,13 @@ class App extends Component<AppProps, AppState> {
   }
 
   componentDidMount() {
-        this.fetchAllTables();
+       // this.fetchAllTables();
   }
 
     //{"user_email": "verchepetrushevska2@gmail.com", "user_first_name": "Verche", "user_last_name": "Petrushevska",
     // "csv_content": "name,age\r\nJohn,30\r\nAnna,20\r\nMaria,35", "uploaded_at": "2024-04-22T22:33:07Z"}
 
+    /*
     fetchAllTables = () => {
         service.fetchAllTables()
             .then((data) => {
@@ -83,7 +70,13 @@ class App extends Component<AppProps, AppState> {
                 })
             })
     }
+*/
+    manageState = (chartProperties : any) => {
+        this.setState({
+            yourChartProps : chartProperties
+        })
 
+    }
 
   render() {
     return(
@@ -104,6 +97,8 @@ class App extends Component<AppProps, AppState> {
                     </Route>
                     <Route path="/register" element={<Register></Register>}></Route>
                     <Route path="/login" element={<Login></Login>}></Route>
+                    <Route path="/tables/:id" element={<TableWrapper></TableWrapper>}></Route>
+
 
 
                 </Routes>

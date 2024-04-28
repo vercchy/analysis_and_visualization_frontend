@@ -67,6 +67,9 @@ const Home : React.FC = () => {
                         <h2>Hi {id}. Thanks for logging in!</h2><br/>
                         <button className={"btn btn-outline-danger"} onClick={handleLogout}>Logout</button>
                     </div>
+                    <div className="row">
+                        <Link to={`/tables/${id}`} className={"btn btn-light"}>My Files</Link>
+                    </div>
                 </div>
             ) : (<div className="container mt-5">
                 <div className="row">

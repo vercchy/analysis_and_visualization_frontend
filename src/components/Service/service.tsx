@@ -2,8 +2,8 @@ import React from 'react'
 import instance from "../custom-axios/instance";
 
 const Service = {
-    fetchAllTables: () => {
-        return instance.get("/home");
+    fetchUserTables: (id:string) => {
+        return instance.get(`/tables/${id}`)
     }
 }
 
