@@ -1,19 +1,17 @@
 import React, {Component} from 'react';
 import service from "../Service/service";
 import {Link, useParams} from "react-router-dom";
-import {IYourChartProps} from "../interfaces/IYourChartProps";
-import createYourChartProps from "../functional/createYourChartProps";
-import YourEmbeddingApp from "../EmbeddingApp/YourEmbeddingApp";
+import axios from 'axios';
+
 
 
 interface TableProps {
-    id : string
+    id : string,
 }
 
 interface TableState {
-    csv_content : string,
-    uploaded_at : string,
-    chartProperties : any
+   tableMap : Map<number, string>
+
 
 }
 
@@ -21,39 +19,57 @@ class Tables extends Component<TableProps, TableState> {
     constructor(props : TableProps) {
         super(props);
         this.state = {
-            csv_content : '',
-            uploaded_at : '',
-            chartProperties : {}
+           tableMap : new Map<number, string>()
         }
     };
     componentDidMount() {
         const {id} = this.props
-        this.fetchUserData(id)
+        this.fetchUserData(id);
 
     }
 
-    fetchUserData = (id: string) => {
-        service.fetchUserTables(id)
-            .then((data) => {
-                const csv_content = data.data[0].csv_content;
-                const chartProperties = createYourChartProps(csv_content);
-                this.setState({
-                    csv_content: csv_content,
-                    uploaded_at: data.data[0].uploaded_at,
-                    chartProperties : chartProperties
-                }, () => {
-                    console.log(this.state.chartProperties)
-                })
+    fetchUserData = async (id: string) => {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            const config = {
+                headers : {
+                    'Authorization' : `Bearer ${accessToken}`
+                }
+            };
+            const response = await axios.get(`http://127.0.0.1:8000/api/tables/${id}`, config);
+            const data = response.data;
+            console.log(data)
+
+            const ids = data.map((item:any) => item.id);
+            const titles = data.map((item:any) => item.title);
+            const tableMap = new Map<number, string>();
+            for(let i = 0; i < ids.length; i++) {
+                tableMap.set(ids[i], titles[i]);
+            }
+            this.setState({
+                tableMap : tableMap
             });
+        } catch (error) {
+            console.error("Error fetching table data:", error);
+        }
+
+
 
     }
-
-
 
 
     render() {
         return (
-           <YourEmbeddingApp data={this.state.chartProperties.data} fields={this.state.chartProperties.fields}></YourEmbeddingApp>
+          <div className="container mt-5">
+              <h4 className="mb-3">My tables</h4>
+              {Array.from(this.state.tableMap.keys()).map((key) => (
+                  <div className="row">
+                      <Link to={`/tables/visualize/${key}`}>{this.state.tableMap.get(key)}</Link>
+                  </div>
+
+              ) )}
+          </div>
+
         )
     }
 

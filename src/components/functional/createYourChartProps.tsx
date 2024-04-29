@@ -18,8 +18,9 @@ const CreateYourChartProps = (param1:string) => {
     //                 ],
     //             }
 
-    const content_array = param1.split("\n").map(value => value.replace(/\r$/, ''));
+    const content_array = param1.split("\\n").map(value => value.replace(/\r$/, ''));
     const line_one = content_array[0].split(",");
+
 
 
 

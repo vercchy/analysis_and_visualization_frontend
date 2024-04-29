@@ -14,12 +14,14 @@ import Login from '../Login/login';
 
 
 import RendererComp from "../renderedData";
-import TableWrapper from "../My-Custom-Tables/Table-Wrapper";
+import TableWrapper from "../My-Custom-Tables/wrappers/Table-Wrapper";
+import TableVisualizationWrapper from "../My-Custom-Tables/wrappers/Table-Visualization-Wrapper";
 
 
 
 
-interface AppProps {}
+interface AppProps {
+}
 
 
 interface AppState {
@@ -71,7 +73,7 @@ class App extends Component<AppProps, AppState> {
             })
     }
 */
-    manageState = (chartProperties : any) => {
+    manageState = (chartProperties : IYourChartProps) => {
         this.setState({
             yourChartProps : chartProperties
         })
@@ -97,6 +99,7 @@ class App extends Component<AppProps, AppState> {
                     </Route>
                     <Route path="/register" element={<Register></Register>}></Route>
                     <Route path="/login" element={<Login></Login>}></Route>
+                    <Route path="/tables/visualize/:id" element={<TableVisualizationWrapper></TableVisualizationWrapper>}></Route>
                     <Route path="/tables/:id" element={<TableWrapper></TableWrapper>}></Route>
 
 
