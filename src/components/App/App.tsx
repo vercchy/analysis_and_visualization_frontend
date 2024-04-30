@@ -14,8 +14,8 @@ import Login from '../Login/login';
 
 
 import RendererComp from "../renderedData";
-import TableWrapper from "../My-Custom-Tables/wrappers/Table-Wrapper";
 import TableVisualizationWrapper from "../My-Custom-Tables/wrappers/Table-Visualization-Wrapper";
+import Tables from '../My-Custom-Tables/tables'
 
 
 
@@ -35,50 +35,12 @@ interface AppState {
 class App extends Component<AppProps, AppState> {
     constructor(props: AppProps) {
         super(props);
-        this.state = {
-            my_user: {
-                email : "",
-                first_name : "",
-                last_name : ""
-            },
-            csv_content : "",
-            yourChartProps: {
-            }
-
-
-
-
-    }
   }
 
   componentDidMount() {
-       // this.fetchAllTables();
+
   }
 
-    //{"user_email": "verchepetrushevska2@gmail.com", "user_first_name": "Verche", "user_last_name": "Petrushevska",
-    // "csv_content": "name,age\r\nJohn,30\r\nAnna,20\r\nMaria,35", "uploaded_at": "2024-04-22T22:33:07Z"}
-
-    /*
-    fetchAllTables = () => {
-        service.fetchAllTables()
-            .then((data) => {
-                this.setState({
-                    my_user : {
-                        email : data.data.user_email,
-                        first_name : data.data.user_first_name,
-                        last_name : data.data.user_last_name
-                    },
-                    csv_content : data.data.csv_content
-                })
-            })
-    }
-*/
-    manageState = (chartProperties : IYourChartProps) => {
-        this.setState({
-            yourChartProps : chartProperties
-        })
-
-    }
 
   render() {
     return(
@@ -86,21 +48,10 @@ class App extends Component<AppProps, AppState> {
             <div>
                 <Routes>
                     <Route index element={<Home></Home>}></Route>
-                    <Route path="/data"
-                           element={ <YourChart data={this.state.yourChartProps.data}
-                                                fields={this.state.yourChartProps.fields}></YourChart>
-                    }></Route>
-                    <Route path="/walker" element={<YourEmbeddingApp data={this.state.yourChartProps.data}
-                        fields={this.state.yourChartProps.fields} ></YourEmbeddingApp>}></Route>
-                    <Route path="/render" element={<RendererComp
-                        my_user={this.state.my_user}
-                        csv_content={this.state.csv_content}></RendererComp>}>
-
-                    </Route>
                     <Route path="/register" element={<Register></Register>}></Route>
                     <Route path="/login" element={<Login></Login>}></Route>
                     <Route path="/tables/visualize/:id" element={<TableVisualizationWrapper></TableVisualizationWrapper>}></Route>
-                    <Route path="/tables/:id" element={<TableWrapper></TableWrapper>}></Route>
+                    <Route path="/tables" element={<Tables></Tables>}></Route>
 
 
 

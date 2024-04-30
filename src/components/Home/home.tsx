@@ -68,7 +68,7 @@ const Home : React.FC = () => {
                         <button className={"btn btn-outline-danger"} onClick={handleLogout}>Logout</button>
                     </div>
                     <div className="row">
-                        <Link to={`/tables/${id}`} className={"btn btn-light"}>My Files</Link>
+                        <Link to={`/tables`} className={"btn btn-light"}>My Files</Link>
                     </div>
                 </div>
             ) : (<div className="container mt-5">
