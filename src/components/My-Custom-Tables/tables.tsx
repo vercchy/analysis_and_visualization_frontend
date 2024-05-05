@@ -37,7 +37,7 @@ const Tables: React.FC = () => {
         try {
             const accessToken = localStorage.getItem("accessToken");
             if(accessToken) {
-              let response = await axios.get("http://127.0.0.1:8000/api/tables", {
+              let response = await axios.get("http://127.0.0.1:8000/api/tables/", {
                     method : 'get',
                     headers : {
                         'Authorization' : 'Bearer ' + String(accessToken)

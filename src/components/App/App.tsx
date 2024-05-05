@@ -14,8 +14,8 @@ import Login from '../Login/login';
 
 
 import RendererComp from "../renderedData";
-import TableVisualizationWrapper from "../My-Custom-Tables/wrappers/Table-Visualization-Wrapper";
 import Tables from '../My-Custom-Tables/tables'
+import AddTable from "../My-Custom-Tables/Add-New-Table/AddTable";
 
 
 
@@ -50,11 +50,8 @@ class App extends Component<AppProps, AppState> {
                     <Route index element={<Home></Home>}></Route>
                     <Route path="/register" element={<Register></Register>}></Route>
                     <Route path="/login" element={<Login></Login>}></Route>
-                    <Route path="/tables/visualize/:id" element={<TableVisualizationWrapper></TableVisualizationWrapper>}></Route>
                     <Route path="/tables" element={<Tables></Tables>}></Route>
-
-
-
+                    <Route path="/tables/create" element={<AddTable></AddTable>}></Route>
                 </Routes>
             </div>
 
