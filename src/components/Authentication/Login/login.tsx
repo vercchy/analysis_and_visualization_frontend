@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react'
 import axios, {AxiosError} from 'axios';
-import handleAxiosError from "../Errors/handleAxiosError";
+import handleAxiosError from "../../Errors/handleAxiosError";
 import {Link, useNavigate} from "react-router-dom";
 
 const Login: React.FC = () => {

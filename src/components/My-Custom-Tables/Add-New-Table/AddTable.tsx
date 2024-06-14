@@ -30,7 +30,7 @@ const AddTable = () => {
         try {
             const accessToken = localStorage.getItem("accessToken");
             if(accessToken) {
-            const response = await axios.post("http://127.0.0.1:8000/api/tables/create/", formData, {
+            const response = await axios.post("http://127.0.0.1:8000/api/templates/create/", formData, {
                 headers : {
                     'Content-Type' : 'multipart/form-data',
                     'Authorization' : 'Bearer ' + String(accessToken)

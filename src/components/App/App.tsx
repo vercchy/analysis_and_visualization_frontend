@@ -2,22 +2,15 @@ import React, {Component} from 'react';
 import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
 import './App.css';
 import {IYourChartProps} from "../interfaces/IYourChartProps";
-import YourChart from "../TableView/YourChart";
-import YourEmbeddingApp from '../EmbeddingApp/YourEmbeddingApp';
-import service from "../Service/service";
 import {IUser} from "../interfaces/IUser";
-//Home component
 import Home from '../Home/home';
 //User authentication components
-import Register from '../Register/register';
-import Login from '../Login/login';
-
-
+import Register from '../Authentication/Register/register';
+import Login from '../Authentication/Login/login';
 import RendererComp from "../renderedData";
 import Tables from '../My-Custom-Tables/tables'
 import AddTable from "../My-Custom-Tables/Add-New-Table/AddTable";
-
-
+import AdvancedAnalysis from "../AdvancedAnalysis/AdvancedAnalysis";
 
 
 interface AppProps {
@@ -37,10 +30,6 @@ class App extends Component<AppProps, AppState> {
         super(props);
   }
 
-  componentDidMount() {
-
-  }
-
 
   render() {
     return(
@@ -52,6 +41,7 @@ class App extends Component<AppProps, AppState> {
                     <Route path="/login" element={<Login></Login>}></Route>
                     <Route path="/tables" element={<Tables></Tables>}></Route>
                     <Route path="/tables/create" element={<AddTable></AddTable>}></Route>
+                    <Route path="/tables/advanced" element={<AdvancedAnalysis csv_content={""}></AdvancedAnalysis>}></Route>
                 </Routes>
             </div>
 

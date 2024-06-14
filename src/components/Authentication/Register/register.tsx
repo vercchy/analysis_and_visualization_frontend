@@ -1,6 +1,6 @@
 import React, {ChangeEvent} from 'react'
 import axios, {AxiosError} from 'axios';
-import handleAxiosError from "../Errors/handleAxiosError";
+import handleAxiosError from "../../Errors/handleAxiosError";
 
 const Register:  React.FC = () => {
     const [formData, updateFormData] = React.useState({
