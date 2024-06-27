@@ -1,3 +1,17 @@
+import {IMutField} from "@kanaries/graphic-walker";
+
+
+const determineSemanticType = (value : string): "nominal" | "ordinal" | "quantitative" | "temporal" => {
+    if(!isNaN(parseFloat(value)) && isFinite(Number(value))) {
+        return "quantitative";
+    }
+    if(!isNaN(Date.parse(value))) {
+        return "temporal";
+    }
+
+    return "nominal";
+}
+
 const CreateYourChartProps = (param1:string) => {
     //  yourChartProps: {
     //                 data: [
@@ -18,17 +32,15 @@ const CreateYourChartProps = (param1:string) => {
     //                 ],
     //             }
 
-
     const content_array = param1.trim().split("\n").map(value => value.replace(/\r$/, ''));
     const line_one = content_array[0].split(",");
 
 
     const data = []
     const fields = []
-    let array_of_entries = [];
 
     for (let i = 1; i < content_array.length; i++) {
-        array_of_entries = [];
+        const array_of_entries = [];
         let entry =  '';
         let flag = false;
         for(let k = 0; k < content_array[i].length; k++) {
@@ -61,12 +73,8 @@ const CreateYourChartProps = (param1:string) => {
             //row_data['age'] = 30
             if(i === content_array.length-1) {
                 row_fields["fid"] = line_one[j];
-                const isNumeric = isNaN(parseFloat(array_of_entries[j]));
-                if(isNumeric) {
-                    row_fields["semanticType"] = "nominal";
-                } else {
-                    row_fields["semanticType"] = "ordinal";
-                }
+                const semanticType = determineSemanticType(array_of_entries[j]);
+                row_fields["semanticType"] = semanticType;
                 row_fields["analyticType"] = "dimension";
                 fields.push(row_fields);
             }

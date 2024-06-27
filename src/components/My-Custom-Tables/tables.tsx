@@ -18,6 +18,7 @@ const Tables: React.FC = () => {
     }, []);
 
     const handleButtonClick = (param1: string) => {
+        console.log("Button clicked");
         const props = CreateYourChartProps(param1);
         setChartProps(props);
         console.log(props)

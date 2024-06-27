@@ -1,0 +1,17 @@
+Places within the project where the frontend components are rendered:
+
+1. C:\Users\krist\Desktop\analysis_and_visualization\node_modules\@kanaries\graphic-walker\src\visualSettings\index.tsx
+
+-- This is where the items array is located.
+
+
+
+
+Things to fix:
+
+
+- After clicking on submit disable button until action is completed!!!! IMPORTANT
+- Implement deletion of tables (delete button)
+- Consider migrating the db for tables to MongoDB
+- Write queries manually 
+- Consider transactions for rollbacks

@@ -38,8 +38,7 @@ const Home : React.FC = () => {
         checkLoggedInUser();
     }, []);
 
-    const handleLogout = async () => {
-        try {
+    const handleLogout = async () => {try {
             const token = localStorage.getItem("refreshToken");
             if(token) {
                 await axios.post("http://127.0.0.1:8000/auth/logout", {

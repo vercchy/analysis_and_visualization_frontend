@@ -1,0 +1,23 @@
+Documenting analysis_and_visualization_frontend to understand it easier next time
+
+
+My-Custom-Tables -> tables.tsx the view that renders the tables cards, where you can choose to press either the button visualize or the button advanced operations.
+
+- Upon clicking on advanced operations button, in localStorage we add a variable table_id which holds the value of the table pressed, 
+then we open a new window with a URL previously defined which leads to the AdvancedAnalysis component.
+
+
+App -> App.tsx is just the component where all the routes are specified
+
+Authentication -> as the name suggests
+
+EmbeddingApp -> YourEmbeddingApp.tsx -> returns the GraphicWalker component and is called to render that component
+
+functional -> createYourChartProps -> is the file used for converting the text csv_file into formats which are a suitable input for the GraphicWalkerComponent, returns an object with data and field variables
+
+home -> home.tsx -> checks whether the user is logged in or out and renders buttons and html elements accordingly, also handles logout functionality upon clicking on the button
+
+From home.tsx we can navigate to the display of table cards, but also we can add a new file if necessary.
+
+
+My-Custom-Tables -> tables.tsx -> upon clicking on visualize, the handleButtonClick function calls the createYourChartProps function, after which it calls renderEmbeddingApp which returns the YourEmbeddingApp component mentioned previously. 
