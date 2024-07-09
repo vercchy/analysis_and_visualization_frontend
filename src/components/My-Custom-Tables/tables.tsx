@@ -3,7 +3,10 @@ import axios from 'axios';
 import CreateYourChartProps from "../functional/createYourChartProps";
 import YourEmbeddingApp from "../EmbeddingApp/YourEmbeddingApp";
 import {Link} from "react-router-dom";
-
+import Navbar from "../base_styling/Navbar";
+import "../../styles/my-tables.css";
+import Footer from "../base_styling/Footer";
+import home from '../Home/home';
 
 
 const Tables: React.FC = () => {
@@ -25,13 +28,13 @@ const Tables: React.FC = () => {
 
     }
 
-    const redirectToAdvanced = (param1 : number, param2 : string | undefined) => {
-        if(param1 != null) {
+    const redirectToAdvanced = (param1: number | null, param2: string | undefined) => {
+        if (param1 != null) {
             localStorage.setItem("table_id", param1.toString());
-            if(param2 != undefined) {
+            if (param2 != undefined) {
                 localStorage.setItem("table_name", param2);
             }
-            window.open("http://localhost:3000/tables/advanced","_self")
+            window.open("http://localhost:3000/tables/advanced", "_self")
         }
 
     }
@@ -80,39 +83,50 @@ const Tables: React.FC = () => {
         <>
             {
                 chartProps ? null : (
-                    <div className="container mt-5">
-                        <h4 className="mb-3">My tables</h4>
-                        <div className="row">
-                            {Array.from(tableMap.keys()).map((key) => (
-                                <div className="col-4">
-                                    <div className="card mt-3">
-                                        <div className="card-body">
-                                            <h5 className="card-title">{tableMap.get(key)?.at(0)}</h5>
+                    <>
+                        <Navbar isLoggedIn={true}></Navbar>
+                        <div className="container mt-5">
+                            <div className="text-center my-8">
+                                <h1 className="mb-5 text-4xl font-bold text-white tracking-wide bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent shadow-md">
+                                    My Tables
+                                </h1>
+                            </div>
+                            <div className="row">
+                                {Array.from(tableMap.keys()).map((key) => (
+                                    <div className="col-md-4">
+                                        <div className="bgblue">
+                                            <div className="card">
+                                                <div className="card-body">
+                                                    <h5 className="card-title">{tableMap.get(key)?.at(0)}</h5>
 
+                                                </div>
+                                                <button
+                                                    className={"btn btn-outline-primary ml-2"}
+                                                    onClick={() => handleButtonClick(tableMap.get(key)?.at(1) || '')}
+                                                    key={key} // Don't forget to add a key when using map
+                                                >
+                                                    Visualize
+                                                </button>
+                                                <button
+                                                    className={"btn btn-outline-info ml-2 mt-3"}
+                                                    onClick={() => redirectToAdvanced(key, tableMap.get(key)?.at(0))}
+                                                    key={key + 25} // Don't forget to add a key when using map
+                                                >
+                                                    Advanced Operations
+                                                </button>
+                                            </div>
                                         </div>
-                                        <button
-                                            className={"btn btn-outline-primary ml-2"}
-                                            onClick={() => handleButtonClick(tableMap.get(key)?.at(1) || '')}
-                                            key={key} // Don't forget to add a key when using map
-                                        >
-                                            Visualize
-                                        </button>
-                                        <button
-                                            className={"btn btn-outline-info ml-2 mt-3"}
-                                            onClick={() => redirectToAdvanced(key || 100, tableMap.get(key)?.at(0))}
-                                            key={key + 25} // Don't forget to add a key when using map
-                                        >
-                                            Advanced Operations
-                                        </button>
                                     </div>
-                                </div>
-                            ))}
-                            {error &&
-                                <div className="container mt-3">
-                                    <h3>Your session expired. Please login again</h3>
-                                    <Link to={"/login"} className={"btn btn-outline-primary"}>Login</Link></div>}
-                        </div> </div>
 
+                                ))}
+                                {error &&
+                                    <div className="container mt-3">
+                                        <h3>Your session expired. Please login again</h3>
+                                        <Link to={"/login"} className={"btn btn-outline-primary"}>Login</Link></div>}
+                            </div>
+                        </div>
+                        <Footer></Footer>
+                    </>
                 )
             }
             {/* Render the embedding app conditionally */}

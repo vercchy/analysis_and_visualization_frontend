@@ -1,0 +1,36 @@
+.add-file-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #13121269;
+    border-radius: 5px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.inpdddut[type="file"] {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    background-color: #3a4b8a;
+    border-radius: 5px;
+    width: 100%;
+    cursor: pointer;
+}
+
+.inpdddut[type="submit"] {
+    padding: 10px 20px;
+    background-color: #2e3a67;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.inpdddut[type="submit"]:hover {
+    background-color: #3a4b8a;
+}

@@ -1,0 +1,65 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #09090b; /* Darker background for body */
+    color: #FFC107 ; /* Light text color */
+}
+.navbar-brand {
+    color : #ffffff;
+}
+
+.navbar-custom {
+    background-color: #09090b !important; /* Black navbar background */
+}
+
+.nav-link-custom {
+    color: #ffffff !important; /* Standout link color */
+}
+
+.nav-link-custom:hover {
+    color: #ffffff !important; /* White color on hover */
+}
+
+.container {
+    color: #e1e1e1; /* Light text color */
+}
+
+.button-custom {
+    background-color: #1e88e5; /* Blue button background */
+    color: #09090b;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.button-custom:hover {
+    background-color: #1565c0; /* Darker blue on hover */
+}
+
+.footer {
+    background-color: #09090b; /* Dark footer background */
+    color: #9e9e9e;
+}
+
+.text-muted {
+    color: #9e9e9e !important;
+}
+
+
+.intro-text {
+    font-style: italic;
+    font-size: 1.2em;
+    color: #c5c6c7; /* Light text color */
+    margin-bottom: 20px;
+    text-align: center; /* Center align the text */
+}
+
+.intro-heading {
+    font-size: 2.5em;
+    font-weight: bold;
+    color: #ffffff; /* White color for the heading */
+    margin-bottom: 20px;
+}
+

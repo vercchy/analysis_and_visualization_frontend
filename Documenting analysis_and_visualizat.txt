@@ -20,4 +20,6 @@ home -> home.tsx -> checks whether the user is logged in or out and renders butt
 From home.tsx we can navigate to the display of table cards, but also we can add a new file if necessary.
 
 
-My-Custom-Tables -> tables.tsx -> upon clicking on visualize, the handleButtonClick function calls the createYourChartProps function, after which it calls renderEmbeddingApp which returns the YourEmbeddingApp component mentioned previously. 
+My-Custom-Tables -> tables.tsx -> upon clicking on visualize, the handleButtonClick function calls the createYourChartProps function, after which it calls renderEmbeddingApp which returns the YourEmbeddingApp component mentioned previously.
+
+base_styling -> contains repetitive components for navbar and footer

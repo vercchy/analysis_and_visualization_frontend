@@ -1,9 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import axios from 'axios';
-import handleAxiosError from "../Errors/handleAxiosError";
-import {Link} from 'react-router-dom';
+import Navbar from "../base_styling/Navbar";
+import Footer from "../base_styling/Footer";
+import Body from "../base_styling/Body";
 
-const Home : React.FC = () => {
+
+const Home: React.FC = () => {
 
     const [id, setId] = useState<string>('');
     const [isLoggedIn, setLoggedIn] = useState<boolean>(false);
@@ -17,8 +19,8 @@ const Home : React.FC = () => {
                 if (token) {
                     //dokolku postoi vakov token prethodno zachuvan so login na korisnikot vo localStorage
                     const config = {
-                        headers : {
-                            'Authorization' : `Bearer ${token}`
+                        headers: {
+                            'Authorization': `Bearer ${token}`
                         }
                     };
                     const response = await axios.get("http://127.0.0.1:8000/auth/user", config);
@@ -29,7 +31,7 @@ const Home : React.FC = () => {
                     setLoggedIn(false);
                 }
 
-            } catch(error) {
+            } catch (error) {
                 setId("");
                 setLoggedIn(false);
 
@@ -38,11 +40,12 @@ const Home : React.FC = () => {
         checkLoggedInUser();
     }, []);
 
-    const handleLogout = async () => {try {
+    const handleLogout = async () => {
+        try {
             const token = localStorage.getItem("refreshToken");
-            if(token) {
+            if (token) {
                 await axios.post("http://127.0.0.1:8000/auth/logout", {
-                    "refresh" : token
+                    "refresh": token
                 })
                 localStorage.removeItem("accessToken")
                 localStorage.removeItem("refreshToken")
@@ -51,7 +54,7 @@ const Home : React.FC = () => {
             }
 
 
-        } catch(error) {
+        } catch (error) {
             console.log("Failed to logout")
 
 
@@ -61,41 +64,20 @@ const Home : React.FC = () => {
     return (
         <div>
             {isLoggedIn ? (
-                <div className="container mt-5">
-                    <div className="row">
-                        <h2>Hi {id}. Thanks for logging in!</h2><br/>
-                        <button className={"btn btn-outline-danger"} onClick={handleLogout}>Logout</button>
-                    </div>
-                    <div className="row">
-                        <div className={"col-md-2"}>
-                            <Link to={`/tables`} className={"btn btn-light"}>My Files</Link>
-                        </div>
-                        <div className={"col-md-3"}>
-                            <Link to={"/tables/create"} className={"btn btn-light"}>Add a new file</Link>
-                        </div>
-
-
-                    </div>
-
-                </div>
-            ) : (<div className="container mt-5">
-                <div className="row">
-                    <div className="col-md-6">
-                        <h2>Please login to continue</h2>
-                    </div>
-                    <div className="col-md-6">
-                        <h2>Register if you are a new user</h2>
-                    </div>
-                    <div className="col-md-6">
-                        <Link to={"/login"} className="btn btn-outline-success text-center">Login</Link>
-                    </div>
-                    <div className="col-md-6">
-                        <Link to={"/register"} className="btn btn-outline-success text-center">Register</Link>
-                    </div>
-
-
-                </div>
-            </div>)}
+                <body className="text-white">
+                <Navbar handleLogout={handleLogout} isLoggedIn={true}></Navbar>
+                <Body isLoggedIn={true}></Body>
+                <Footer></Footer>
+                </body>
+            ) : (<body className="text-white">
+            <Navbar handleLogout={handleLogout} isLoggedIn={false}></Navbar>
+            <Body isLoggedIn={false}></Body>
+            <p className="intro-text mt-3">
+                Already a registered user? <a style={{"color" : "white"}} href="/login">Login</a>
+            </p>
+            <p className="intro-text"><a style={{"color" : "white"}} href="/register">Register</a></p>
+            <Footer></Footer>
+            </body>)}
 
         </div>
     )

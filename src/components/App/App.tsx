@@ -7,10 +7,12 @@ import Home from '../Home/home';
 //User authentication components
 import Register from '../Authentication/Register/register';
 import Login from '../Authentication/Login/login';
-import RendererComp from "../renderedData";
+
 import Tables from '../My-Custom-Tables/tables'
 import AddTable from "../My-Custom-Tables/Add-New-Table/AddTable";
 import AdvancedAnalysis from "../AdvancedAnalysis/AdvancedAnalysis";
+import "../../styles/custom.css"
+import "../../styles/loginform.css"
 
 
 interface AppProps {
