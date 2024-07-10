@@ -1,8 +1,8 @@
 import React, {ChangeEvent} from 'react'
 import axios, {AxiosError} from 'axios';
-import handleAxiosError from "../../Errors/handleAxiosError";
-import Navbar from "../../base_styling/Navbar";
-import Footer from "../../base_styling/Footer";
+import handleAxiosError from "../Errors/handleAxiosError";
+import Navbar from "../base_styling/Navbar";
+import Footer from "../base_styling/Footer";
 
 const Register: React.FC = () => {
     const [formData, updateFormData] = React.useState({
@@ -54,7 +54,7 @@ const Register: React.FC = () => {
 
     return (
         <>
-            <Navbar isLoggedIn={false}></Navbar>
+            <Navbar></Navbar>
             <form className="form" onSubmit={handleSubmit}>
                 {Object.entries(errors).map(([fieldName, errorMessage]) => {
                     return (

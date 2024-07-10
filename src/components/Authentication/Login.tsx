@@ -1,11 +1,13 @@
 import React, {ChangeEvent} from 'react'
 import axios, {AxiosError} from 'axios';
-import handleAxiosError from "../../Errors/handleAxiosError";
-import {Link, useNavigate} from "react-router-dom";
-import Navbar from "../../base_styling/Navbar";
-import Footer from "../../base_styling/Footer";
+import handleAxiosError from "../Errors/handleAxiosError";
+import {useNavigate} from "react-router-dom";
+import Navbar from "../base_styling/Navbar";
+import Footer from "../base_styling/Footer";
+import {useAuth} from "./AuthContext";
 
 const Login: React.FC = () => {
+    const {handleLogin} = useAuth();
     const [formData, updateFormData] = React.useState({
         email : "",
         password : ""
@@ -31,6 +33,7 @@ const Login: React.FC = () => {
             const response = await axios.post("http://127.0.0.1:8000/auth/login", formData);
             setErrors([]);
             setSuccess("User logged in successfully!");
+            handleLogin();
             localStorage.setItem("accessToken", response.data.tokens.access)
             localStorage.setItem("refreshToken", response.data.tokens.refresh)
             navigate("/")
@@ -43,7 +46,7 @@ const Login: React.FC = () => {
 
     return (
         <>
-            <Navbar isLoggedIn={false}></Navbar>
+            <Navbar></Navbar>
             <form className="form" onSubmit={handleSubmit}>
                 {Object.entries(errors).map(([fieldName, errorMessage]) =>  {
                     return (
@@ -73,7 +76,7 @@ const Login: React.FC = () => {
                 <div className="btn">
                     <button
                         className="button1">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Login&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</button>
-                    <button className="button2"><a href="/register" style={{ textDecoration: 'none', color : "white" }}>Register</a></button>
+                    <button className="button2"><a href="/src/components/Authentication/Register" style={{ textDecoration: 'none', color : "white" }}>Register</a></button>
                 </div>
                 {success ? <p style={{color:'green'}}>{success}</p> : ''}
             </form>

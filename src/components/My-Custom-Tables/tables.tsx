@@ -7,6 +7,7 @@ import Navbar from "../base_styling/Navbar";
 import "../../styles/my-tables.css";
 import Footer from "../base_styling/Footer";
 import home from '../Home/home';
+import {useAuth} from "../Authentication/AuthContext";
 
 
 const Tables: React.FC = () => {
@@ -21,22 +22,28 @@ const Tables: React.FC = () => {
     }, []);
 
     const handleButtonClick = (param1: string) => {
-        console.log("Button clicked");
         const props = CreateYourChartProps(param1);
         setChartProps(props);
-        console.log(props)
 
     }
 
-    const redirectToAdvanced = (param1: number | null, param2: string | undefined) => {
-        if (param1 != null) {
-            localStorage.setItem("table_id", param1.toString());
-            if (param2 != undefined) {
-                localStorage.setItem("table_name", param2);
-            }
-            window.open("http://localhost:3000/tables/advanced", "_self")
-        }
 
+    const handleDelete = async (tableId: number) => {
+        try {
+            const accessToken = localStorage.getItem("accessToken");
+            if (accessToken) {
+                await axios.delete(`http://127.0.0.1:8000/api/templates/delete/${tableId}`, {
+                    headers: {
+                        'Authorization': 'Bearer ' + String(accessToken)
+                    },
+                });
+                // Refresh the tables after deletion
+                getTables();
+            }
+        } catch (err: any) {
+            console.log(err);
+
+        }
     }
 
     const RenderEmbeddingApp = () => {
@@ -84,7 +91,7 @@ const Tables: React.FC = () => {
             {
                 chartProps ? null : (
                     <>
-                        <Navbar isLoggedIn={true}></Navbar>
+                        <Navbar></Navbar>
                         <div className="container mt-5">
                             <div className="text-center my-8">
                                 <h1 className="mb-5 text-4xl font-bold text-white tracking-wide bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent shadow-md">
@@ -108,11 +115,11 @@ const Tables: React.FC = () => {
                                                     Visualize
                                                 </button>
                                                 <button
-                                                    className={"btn btn-outline-info ml-2 mt-3"}
-                                                    onClick={() => redirectToAdvanced(key, tableMap.get(key)?.at(0))}
+                                                    className={"btn btn-outline-danger ml-2 mt-3"}
+                                                    onClick={() => handleDelete(key)}
                                                     key={key + 25} // Don't forget to add a key when using map
                                                 >
-                                                    Advanced Operations
+                                                    Delete
                                                 </button>
                                             </div>
                                         </div>

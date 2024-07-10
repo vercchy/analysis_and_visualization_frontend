@@ -1,13 +1,10 @@
 import React from 'react';
+import {useAuth} from "../Authentication/AuthContext";
 
 
-interface NavBarProp {
-    handleLogout?: () => void,
-    isLoggedIn: boolean
-}
 
-
-const Navbar: React.FC<NavBarProp> = ({handleLogout = () => {}, isLoggedIn}) => {
+const Navbar: React.FC = () => {
+    const {isLoggedIn, handleLogout} = useAuth();
     return (
         <nav className="navbar navbar-expand-lg navbar-custom">
             <a className="navbar-brand" href="/">Tabular Wizard</a>

@@ -54,7 +54,7 @@ const AddTable = () => {
     }
     return (
         <>
-            <Navbar isLoggedIn={true}></Navbar>
+            <Navbar></Navbar>
             <div className="container mt-5">
                 <h5 className="mb-5 text-center text-4xl font-bold text-white tracking-wide bg-gradient-to-r from-blue-400 to-blue-600 bg-clip-text text-transparent shadow-md">Add a new file</h5>
                 <div className="add-file-container">
