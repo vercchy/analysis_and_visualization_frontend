@@ -68,7 +68,7 @@ const CreateYourChartProps = (param1:string) => {
             if(i === content_array.length-1) {
                 row_fields["fid"] = line_one[j];
                 //taking all the values already pre-stored in data in the form of an array of strings to determine whether they are nominal or not
-                let valuesToDetermineType = data.map(item => item[line_one[j]]).slice(0, 40);
+                let valuesToDetermineType = data.map(item => item[line_one[j]]).slice(0, 70);
                 const semanticType = determineSemanticType(valuesToDetermineType);
                 row_fields["semanticType"] = semanticType;
                 row_fields["analyticType"] = "dimension";
