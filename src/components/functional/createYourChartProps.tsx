@@ -1,36 +1,30 @@
 import {IMutField} from "@kanaries/graphic-walker";
 
 
-const determineSemanticType = (value : string): "nominal" | "ordinal" | "quantitative" | "temporal" => {
-    if(!isNaN(parseFloat(value)) && isFinite(Number(value))) {
-        return "quantitative";
-    }
-    if(!isNaN(Date.parse(value))) {
-        return "temporal";
+const determineSemanticType = (values : string[]): "nominal" | "ordinal" | "quantitative" | "temporal" => {
+    if(!isNaN(parseFloat(values[0])) && isFinite(Number(values[0]))) {
+        let uniqueOccurrences = values.reduce((acc : Map<string,number>, curr : string) => {
+            if(!acc.has(curr)) {
+                acc.set(curr, 0);
+            }
+            return acc;
+        }, new Map<string, number>())
+
+        if(uniqueOccurrences.size <=4) {
+            return "nominal";
+        } else {
+            return "quantitative";
+        }
+    } else {
+        if(!isNaN(Date.parse(values[0]))) {
+            return "temporal";
+        }
     }
 
     return "nominal";
 }
 
 const CreateYourChartProps = (param1:string) => {
-    //  yourChartProps: {
-    //                 data: [
-    //                     {id: 1, name: "Kiko"}, // Example IRow object
-    //                     {id: 2, name: "Verche"},
-    //                 ],
-    //                 fields: [
-    //                     {
-    //                         fid: "id", key: "keyID", name: "id", basename: "id",
-    //                         disable: false, semanticType: "ordinal", analyticType: "dimension"
-    //                     }, // Example IMutField object
-    //                     {
-    //                         fid: "name", key: "keyName", name: "name", basename: "name",
-    //                         disable: false, semanticType: "nominal", analyticType: "dimension"
-    //                     },
-    //
-    //                     // Add more IMutField objects as needed
-    //                 ],
-    //             }
 
     const content_array = param1.trim().split("\n").map(value => value.replace(/\r$/, ''));
     const line_one = content_array[0].split(",");
@@ -73,7 +67,9 @@ const CreateYourChartProps = (param1:string) => {
             //row_data['age'] = 30
             if(i === content_array.length-1) {
                 row_fields["fid"] = line_one[j];
-                const semanticType = determineSemanticType(array_of_entries[j]);
+                //taking all the values already pre-stored in data in the form of an array of strings to determine whether they are nominal or not
+                let valuesToDetermineType = data.map(item => item[line_one[j]]).slice(0, 40);
+                const semanticType = determineSemanticType(valuesToDetermineType);
                 row_fields["semanticType"] = semanticType;
                 row_fields["analyticType"] = "dimension";
                 fields.push(row_fields);
