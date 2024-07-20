@@ -20,7 +20,7 @@ const Navbar: React.FC = () => {
                                     <a className="nav-link-custom nav-link" href="/">Home</a>
                                 </li>
                                 <li className="nav-item">
-                                    <a className="nav-link-custom nav-link" href="/tables">My Files</a>
+                                    <a className="nav-link-custom nav-link" href="/tables">My Tables</a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link-custom nav-link" href="/tables/create">Add New File</a>

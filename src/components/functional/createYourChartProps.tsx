@@ -1,7 +1,11 @@
 import {IMutField} from "@kanaries/graphic-walker";
 
+interface FieldInfo {
+    semanticType : "nominal" | "ordinal" | "quantitative" | "temporal";
+    analyticType : "dimension" | "measure";
+}
 
-const determineSemanticType = (values : string[]): "nominal" | "ordinal" | "quantitative" | "temporal" => {
+const determineSemanticType = (values : string[]): FieldInfo => {
     if(!isNaN(parseFloat(values[0])) && isFinite(Number(values[0]))) {
         let uniqueOccurrences = values.reduce((acc : Map<string,number>, curr : string) => {
             if(!acc.has(curr)) {
@@ -11,17 +15,17 @@ const determineSemanticType = (values : string[]): "nominal" | "ordinal" | "quan
         }, new Map<string, number>())
 
         if(uniqueOccurrences.size <=4) {
-            return "nominal";
+            return {semanticType : "nominal", analyticType : "dimension"}
         } else {
-            return "quantitative";
+            return {semanticType : "quantitative", analyticType : "measure"}
         }
     } else {
         if(!isNaN(Date.parse(values[0]))) {
-            return "temporal";
+            return { semanticType: "temporal", analyticType: "dimension" };
         }
     }
 
-    return "nominal";
+    return {semanticType : "nominal", analyticType : "dimension"}
 }
 
 const CreateYourChartProps = (param1:string) => {
@@ -69,9 +73,9 @@ const CreateYourChartProps = (param1:string) => {
                 row_fields["fid"] = line_one[j];
                 //taking all the values already pre-stored in data in the form of an array of strings to determine whether they are nominal or not
                 let valuesToDetermineType = data.map(item => item[line_one[j]]).slice(0, 70);
-                const semanticType = determineSemanticType(valuesToDetermineType);
+                const {semanticType, analyticType} = determineSemanticType(valuesToDetermineType);
                 row_fields["semanticType"] = semanticType;
-                row_fields["analyticType"] = "dimension";
+                row_fields["analyticType"] = analyticType;
                 fields.push(row_fields);
             }
 
